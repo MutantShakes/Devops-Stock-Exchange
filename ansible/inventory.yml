@@ -1,6 +1,5 @@
-[ansible_nodes]
-localhost ansible_user=sheikh ansible_python_interpreter=/usr/bin/python3
-
-[ansible_nodes:vars]
-ansible_connection=local
-
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_python_interpreter: /opt/ansible-venv/bin/python

@@ -1,46 +1,73 @@
 ---
 - name: Deploying with Kubernetes
-  hosts: all
+  hosts: localhost
   tasks:
 
-    - name: install pre-requisites
-      pip:
+    - name: Ensure Python3, virtualenv, and pipx are installed
+      apt:
         name:
-          - openshift
-          - pyyaml
-          - kubernetes
+          - python3
+          - python3-venv
+          - python3-pip
+          - pipx
+        state: present
+
+    - name: Create a virtual environment for Python dependencies
+      command: python3 -m venv /opt/ansible-venv
+      args:
+        creates: /opt/ansible-venv/bin/activate
+
+    - name: Install required Python packages in the virtual environment
+      shell: |
+        source /opt/ansible-venv/bin/activate && pip install openshift pyyaml kubernetes
+      args:
+        executable: /bin/bash
 
     - name: Apply Secrets
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', './k8s/boot-backend-secret.yaml') | from_yaml }}"
-
-    - name: Create Backend Deployment
-      kubernetes.core.k8s:
-        state: present
-        definition: "{{ lookup('file', './k8s/backend-deployment.yaml') | from_yaml }}"
-
-    - name: Create Backend Service
-      kubernetes.core.k8s:
-        state: present
-        definition: "{{ lookup('file', './k8s/backend-service.yaml') | from_yaml }}"
+        definition: "{{ lookup('file', './k8/boot-backend-secret.yaml') | from_yaml }}"
+      environment:
+        KUBECONFIG: /path/to/kubeconfig
 
     - name: Create Frontend Deployment
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', './k8s/frontend-deployment.yaml') | from_yaml }}"
+        definition: "{{ lookup('file', './k8/frontend-deployment.yaml') | from_yaml }}"
+      environment:
+        KUBECONFIG: /path/to/kubeconfig
 
     - name: Create Frontend Service
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', './k8s/frontend-service.yaml') | from_yaml }}"
+        definition: "{{ lookup('file', './k8/frontend-service.yaml') | from_yaml }}"
+      environment:
+        KUBECONFIG: /path/to/kubeconfig
 
-    - name: Create ConfigMap
+    - name: Create Backend Deployment
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', './k8s/frontend-configmap.yaml') | from_yaml }}"
+        definition: "{{ lookup('file', './k8/backend-deployment.yaml') | from_yaml }}"
+      environment:
+        KUBECONFIG: /path/to/kubeconfig
+
+    - name: Create Backend Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', './k8/backend-service.yaml') | from_yaml }}"
+      environment:
+        KUBECONFIG: /path/to/kubeconfig
+
+    - name: Create Config Map
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', './k8/frontend-configmap.yaml') | from_yaml }}"
+      environment:
+        KUBECONFIG: /path/to/kubeconfig
 
     - name: Create Ingress
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', './k8s/boot-ingress.yaml') | from_yaml }}"
+        definition: "{{ lookup('file', './k8/boot-ingress.yaml') | from_yaml }}"
+      environment:
+        KUBECONFIG: /path/to/kubeconfig
