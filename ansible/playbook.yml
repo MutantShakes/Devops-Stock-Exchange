@@ -3,24 +3,12 @@
   hosts: all
   tasks:
 
-    - name: Ensure Python3 and virtualenv are installed
-      apt:
+    - name: install pre-requisites
+      pip:
         name:
-          - python3
-          - python3-venv
-          - python3-pip
-        state: present
-
-    - name: Create a virtual environment for Ansible Kubernetes modules
-      command: python3 -m venv /opt/ansible-venv
-      args:
-        creates: /opt/ansible-venv/bin/activate
-
-    - name: Install required Python packages in the virtual environment
-      shell: |
-        source /opt/ansible-venv/bin/activate && pip install openshift pyyaml kubernetes
-      args:
-        executable: /bin/bash
+          - openshift
+          - pyyaml
+          - kubernetes
 
     - name: Apply Secrets
       kubernetes.core.k8s:
