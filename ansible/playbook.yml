@@ -1,6 +1,6 @@
 ---
 - name: Deploying with Kubernetes
-  hosts: localhost
+  hosts: all
   tasks:
 
     - name: Ensure pip is installed
