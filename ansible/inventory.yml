@@ -2,5 +2,5 @@ all:
   hosts:
     localhost:
       ansible_connection: local
-      ansible_user: sheikh
+      ansible_user: root
       ansible_python_interpreter: /usr/bin/python3
