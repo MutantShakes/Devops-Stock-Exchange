@@ -19,6 +19,11 @@
         state: present
         definition: "{{ lookup('file', '../k8s/mysql-deployment.yaml') | from_yaml }}"
 
+    - name: Create Backend Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-service.yaml') | from_yaml }}"
+
 
     - name: Apply Secrets
       kubernetes.core.k8s:

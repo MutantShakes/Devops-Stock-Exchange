@@ -11,12 +11,16 @@ services:
       - SPRING_DATASOURCE_PASSWORD=142002
     depends_on:
       - db
+    networks:
+      - stock-network
 
   frontend:
     build:
       context: ./stock-exchange-frontend
     ports:
       - "3000:80"
+    networks:
+      - stock-network
 
   db:
     image: mysql:8
@@ -25,3 +29,13 @@ services:
       MYSQL_DATABASE: stock_exchange
     ports:
       - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - stock-network
+
+volumes:
+  db-data:
+
+networks:
+  stock-network:
