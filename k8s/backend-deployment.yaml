@@ -20,22 +20,18 @@ spec:
         - containerPort: 8080
         env:
         - name: DB_HOST
-          value: "jdbc:mysql://db:3306/stock_exchange"  # Replace with the MySQL server address
+          value: "mysql-service"
         - name: DB_PORT
           value: "3306"
-        - name: DB_NAME
-          value: "stock_exchange"  # Replace with the database name
         - name: DB_USER
-          value: "root"  # Replace with the username
+          valueFrom:
+            secretKeyRef:
+              name: backend-secret
+              key: DB_USER
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: boot-backend-secret
+              name: backend-secret
               key: DB_PASSWORD
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "250m"
-          limits:
-            memory: "256Mi"
-            cpu: "500m"
+        - name: DB_NAME
+          value: "stock_exchange"

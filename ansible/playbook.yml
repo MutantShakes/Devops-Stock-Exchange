@@ -14,6 +14,12 @@
       args:
         executable: /bin/bash
 
+    - name: Deploy MySQL
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', './k8/mysql-deployment.yaml') | from_yaml }}"
+
+
     - name: Apply Secrets
       kubernetes.core.k8s:
         state: present

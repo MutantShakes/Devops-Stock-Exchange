@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: stock-exchange
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: 142002
+        - name: MYSQL_DATABASE
+          value: stock_exchange
+        - name: MYSQL_USER
+          value: stockuser
+        - name: MYSQL_PASSWORD
+          value: 142002
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql
+        - name: init-sql
+          mountPath: /docker-entrypoint-initdb.d
+          readOnly: true
+      volumes:
+      - name: mysql-data
+        emptyDir: {}
+      - name: init-sql
+        configMap:
+          name: mysql-init-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: stock-exchange
+spec:
+  selector:
+    app: mysql
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+
