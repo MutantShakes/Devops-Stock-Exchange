@@ -18,13 +18,13 @@ spec:
         image: mysql:8.0
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: 142002
+          value: "142002"
         - name: MYSQL_DATABASE
           value: stock_exchange
         - name: MYSQL_USER
           value: stockuser
         - name: MYSQL_PASSWORD
-          value: 142002
+          value: "142002"
         ports:
         - containerPort: 3306
           name: mysql
