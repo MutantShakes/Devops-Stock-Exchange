@@ -1,5 +1,5 @@
 [ansible_nodes]
-localhost ansible_user=sheikh ansible_python_interpreter=/usr/bin/python3.12
+localhost ansible_ssh_user=sheikh ansible_python_interpreter=/usr/bin/python3.12
 
-[ansible_nodes:vars]
-ansible_connection=local
+# [ansible_nodes:vars]
+# ansible_connection=local
