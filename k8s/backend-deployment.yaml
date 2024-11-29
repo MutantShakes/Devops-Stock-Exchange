@@ -28,7 +28,10 @@ spec:
         - name: DB_USER
           value: "root"  # Replace with the username
         - name: DB_PASSWORD
-          value: "142002"  # Replace with the password
+          valueFrom:
+            secretKeyRef:
+              name: boot-backend-secret
+              key: DB_PASSWORD
         resources:
           requests:
             memory: "128Mi"
@@ -36,17 +39,3 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 5
-        imagePullPolicy: Always
-      restartPolicy: Always
