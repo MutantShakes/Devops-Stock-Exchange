@@ -60,17 +60,17 @@
         
       
 
-    - name: Create Config Map
+    - name: Create Frontend Config Map
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '../k8s/frontend-configmap.yaml') | from_yaml }}"
 
-    - name: Create Config Map
+    - name: Create MySQL Config Map
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '../k8s/mysql-configmap.yaml') | from_yaml }}"
         
-    - name: Create Config
+    - name: Create MySQL Config
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '../k8s/mysql-config.yaml') | from_yaml }}"   
