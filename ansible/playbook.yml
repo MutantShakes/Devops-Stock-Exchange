@@ -19,7 +19,7 @@
         state: present
         definition: "{{ lookup('file', '../k8s/mysql-deployment.yaml') | from_yaml }}"
 
-    - name: Create Backend Service
+    - name: Create MySQL Service
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '../k8s/mysql-service.yaml') | from_yaml }}"
@@ -64,8 +64,16 @@
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '../k8s/frontend-configmap.yaml') | from_yaml }}"
+
+    - name: Create Config Map
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-configmap.yaml') | from_yaml }}"
         
-      
+    - name: Create Config
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-config.yaml') | from_yaml }}"   
 
     - name: Create Ingress
       kubernetes.core.k8s:

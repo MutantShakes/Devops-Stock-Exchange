@@ -15,30 +15,38 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: mysql:8.0
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: "142002"
-        - name: MYSQL_DATABASE
-          value: stock_exchange
-        - name: MYSQL_USER
-          value: stockuser
-        - name: MYSQL_PASSWORD
-          value: "142002"
+        image: mysql:8
         ports:
         - containerPort: 3306
-          name: mysql
+        env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: MYSQL_DATABASE
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: MYSQL_PASSWORD
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: MYSQL_ROOT_PASSWORD
         volumeMounts:
         - name: mysql-data
           mountPath: /var/lib/mysql
-        - name: init-sql
+        - name: init-sql-scripts
           mountPath: /docker-entrypoint-initdb.d
-          readOnly: true
       volumes:
       - name: mysql-data
         emptyDir: {}
-      - name: init-sql
+      - name: init-sql-scripts
         configMap:
-          name: mysql-init-config
-
-
+          name: mysql-init-script
