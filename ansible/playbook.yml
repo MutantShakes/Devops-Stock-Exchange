@@ -24,6 +24,11 @@
         state: present
         definition: "{{ lookup('file', '../k8s/mysql-configmap.yaml') | from_yaml }}"
 
+    - name: Create MySQL PVC
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-storage.yaml') | from_yaml }}"
+
     - name: Deploy MySQL
       kubernetes.core.k8s:
         state: present
