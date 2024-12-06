@@ -33,6 +33,15 @@ pipeline {
                 }
             }
         }
+        
+        stage('Deploy MySQL with Ansible') {
+            steps {
+                script{
+                    sh 'ansible-playbook -i ansible/inventory.yml ansible/mysql-playbook.yml'
+                }
+            }
+        }
+
 
         stage('Docker Build & Push') {
             steps {

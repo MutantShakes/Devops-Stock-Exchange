@@ -1,0 +1,40 @@
+---
+- name: Deploying with Kubernetes
+  hosts: all
+  tasks:
+
+    - name: Ensure pip is installed
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install prerequisites system-wide
+      shell: |
+        python3.12 -m pip install --break-system-packages openshift pyyaml kubernetes
+      args:
+        executable: /bin/bash
+
+    - name: Apply MySQL Secrets
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-secret.yaml') | from_yaml }}"
+
+    - name: Create MySQL Config Map
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-configmap.yaml') | from_yaml }}"
+
+    - name: Create MySQL PVC
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-storage.yaml') | from_yaml }}"
+
+    - name: Create MySQL Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-service.yaml') | from_yaml }}"
+
+    - name: Deploy MySQL
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-deployment.yaml') | from_yaml }}"
