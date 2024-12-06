@@ -20,7 +20,7 @@ spec:
         - containerPort: 8080
         env:
         - name: DB_HOST
-          value: mysql
+          value: localhost
         - name: DB_NAME
           value: stock_exchange
         - name: DB_USERNAME
