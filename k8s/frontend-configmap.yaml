@@ -4,4 +4,4 @@ metadata:
   name: frontend-config
   namespace: stock-exchange
 data:
-  REACT_APP_BACKEND_URL: http://backend-service
+  REACT_APP_BACKEND_URL: backend-service

@@ -5,7 +5,7 @@ metadata:
   namespace: stock-exchange
 spec:
   rules:
-  - host: stock-exchange.local
+  - host: localhost
     http:
       paths:
       - path: /
