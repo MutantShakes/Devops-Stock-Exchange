@@ -4,39 +4,49 @@ metadata:
   name: mysql
   namespace: stock-exchange
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: mysql
     spec:
       containers:
-      - name: mysql
-        image: mysql:8
-        ports:
-        - containerPort: 3306
+      - image: mysql:8
+        name: mysql
         env:
-        - name: MYSQL_DATABASE
-          valueFrom:
-            configMapKeyRef:
-              name: mysql-config
-              key: MYSQL_DATABASE
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
-            configMapKeyRef:
-              name: mysql-config
-              key: MYSQL_ROOT_PASSWORD
-        volumeMounts:
-        - name: mysql-data
-          mountPath: /var/lib/mysql
-        - name: init-sql-scripts
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+        ports:
+        - containerPort: 3306
+          name: mysql
+      volumeMounts:
+        - name: mysql-initdb
           mountPath: /docker-entrypoint-initdb.d
+        - mountPath: "/var/lib/mysql"
+          subPath: "mysql"
+          name: mysql-data
       volumes:
-      - name: mysql-data
-        emptyDir: {}
-      - name: init-sql-scripts
-        configMap:
-          name: mysql-init-script
+      - name: mysql-initdb
+          configMap:
+            name: mysql-initdb-config
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: stock-exchange
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql

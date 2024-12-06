@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,18 +21,14 @@ spec:
         - containerPort: 8080
         env:
         - name: DB_HOST
-          value: "mysql-service"
-        - name: DB_PORT
-          value: "3306"
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: backend-secret
-              key: DB_USER
+          value: mysql
+        - name: DB_NAME
+          value: stock_exchange
+        - name: DB_USERNAME
+          value: root
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: backend-secret
               key: DB_PASSWORD
-        - name: DB_NAME
-          value: "stock_exchange"
+---

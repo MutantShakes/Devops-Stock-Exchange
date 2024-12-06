@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mysql-config
-  namespace: stock-exchange
-data:
-  MYSQL_DATABASE: stock_exchange
-  MYSQL_ROOT_PASSWORD: "142002"

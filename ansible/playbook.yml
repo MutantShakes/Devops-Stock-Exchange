@@ -14,6 +14,11 @@
       args:
         executable: /bin/bash
 
+    - name: Apply MySQL Secrets
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-secret.yaml') | from_yaml }}"
+
     - name: Create MySQL Config Map
       kubernetes.core.k8s:
         state: present
@@ -23,11 +28,6 @@
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '../k8s/mysql-deployment.yaml') | from_yaml }}"
-
-    - name: Create MySQL Service
-      kubernetes.core.k8s:
-        state: present
-        definition: "{{ lookup('file', '../k8s/mysql-service.yaml') | from_yaml }}"
 
 
     - name: Apply Secrets
@@ -70,12 +70,7 @@
         state: present
         definition: "{{ lookup('file', '../k8s/frontend-configmap.yaml') | from_yaml }}"
 
-
-        
-    - name: Create MySQL Config
-      kubernetes.core.k8s:
-        state: present
-        definition: "{{ lookup('file', '../k8s/mysql-config.yaml') | from_yaml }}"   
+ 
 
     - name: Create Ingress
       kubernetes.core.k8s:
