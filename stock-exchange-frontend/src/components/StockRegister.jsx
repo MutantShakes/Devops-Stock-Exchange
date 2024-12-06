@@ -56,7 +56,7 @@ const StockRegister = () => {
           <input
             type="number"
             value={stockQuantity}
-            onChange={(e) => setStockPrice(e.target.value)}
+            onChange={(e) => setStockQuantity(e.target.value)}
             placeholder="Enter stock price"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
           />
