@@ -4,10 +4,11 @@ import api from "../services/api";
 const StockRegister = () => {
   const [stockName, setStockName] = useState("");
   const [stockPrice, setStockPrice] = useState("");
+  const [stockQuantity, setStockQuantity] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const stockData = { name: stockName, price: stockPrice };
+    const stockData = { company_name: stockName, price: stockPrice, quantity: stockQuantity };
     const response = await api.registerStock(stockData);
     if (response) {
       alert("Stock registered successfully!");
@@ -42,6 +43,18 @@ const StockRegister = () => {
           <input
             type="number"
             value={stockPrice}
+            onChange={(e) => setStockPrice(e.target.value)}
+            placeholder="Enter stock price"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Stock Quantity
+          </label>
+          <input
+            type="number"
+            value={stockQuantity}
             onChange={(e) => setStockPrice(e.target.value)}
             placeholder="Enter stock price"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"

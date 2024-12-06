@@ -26,7 +26,7 @@ const api = {
   // Register a stock
   registerStock: async (stockData) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/register-stock`, {
+      const response = await fetch(`${API_BASE_URL}/stocks/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(stockData),
@@ -52,7 +52,7 @@ const api = {
   // Register a user
   registerUser: async (userData) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/register-user`, {
+      const response = await fetch(`${API_BASE_URL}/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),
