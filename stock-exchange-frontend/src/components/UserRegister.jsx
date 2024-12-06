@@ -1,29 +1,25 @@
-import React, { useState } from "react";
-import { registerUser } from "../services/api";
+import React from "react";
 
 const UserRegister = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await registerUser({ name, email, passwordHash: password });
-      alert("User registered successfully!");
-    } catch (error) {
-      alert("Error registering user!");
-    }
-  };
-
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <h2>Register User</h2>
-      <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit">Register</button>
-    </form>
+    <div>
+      <h1 className="text-2xl font-bold mb-4">Register User</h1>
+      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            Username
+          </label>
+          <input
+            type="text"
+            placeholder="Enter username"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+          />
+        </div>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Register
+        </button>
+      </form>
+    </div>
   );
 };
 
