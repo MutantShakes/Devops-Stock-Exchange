@@ -14,6 +14,7 @@ const StockRegister = () => {
       alert("Stock registered successfully!");
       setStockName("");
       setStockPrice("");
+      setStockQuantity("");
     }
   };
 
