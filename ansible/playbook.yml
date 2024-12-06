@@ -29,6 +29,11 @@
         state: present
         definition: "{{ lookup('file', '../k8s/mysql-storage.yaml') | from_yaml }}"
 
+    - name: Create MySQL Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../k8s/mysql-service.yaml') | from_yaml }}"
+
     - name: Deploy MySQL
       kubernetes.core.k8s:
         state: present
