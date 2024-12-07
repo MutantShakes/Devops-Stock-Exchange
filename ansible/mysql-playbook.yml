@@ -14,6 +14,17 @@
       args:
         executable: /bin/bash
 
+    - name: Deploy PV
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../mysql/mysql-pv.yaml') | from_yaml }}"
+
+    - name: Deploy PVC
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../mysql/mysql-pvc.yaml') | from_yaml }}"
+
+
     - name: Deploy MySQL
       kubernetes.core.k8s:
         state: present
