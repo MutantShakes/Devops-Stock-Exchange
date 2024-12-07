@@ -42,9 +42,7 @@ const StockRegister = () => {
       }
     } catch (error) {
       setMessage(
-        error.message === "Request timed out"
-          ? "Request timed out. Please try again!"
-          : error.response?.data?.message || "An error occurred!"
+        error.message || "An error occurred!"
       );
       setMessageType("error");
     } finally {
