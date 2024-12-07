@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "http://localhost:8080/api"; // Update this URL if the backend endpoint changes.
+const API_BASE_URL = "http://localhost:5000/api"; // Update this URL if the backend endpoint changes.
 
 // Helper for timeout
 const timeout = (ms, promise) => {
