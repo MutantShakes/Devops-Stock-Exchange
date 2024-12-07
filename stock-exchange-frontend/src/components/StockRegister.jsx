@@ -5,7 +5,7 @@ const StockRegister = () => {
   const [stockName, setStockName] = useState("");
   const [stockPrice, setStockPrice] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
-  const [message, setMessage] = useState(null); // For success/error messages
+  const [message, setMessage] = useState(true); // For success/error messages
   const [messageType, setMessageType] = useState(""); // 'success' or 'error'
   const [loading, setLoading] = useState(false); // For showing the loading bar
 
@@ -35,7 +35,7 @@ const StockRegister = () => {
         setMessage("Stock registered successfully!");
         setMessageType("success");
         // Clear form fields
-        setStockName("");
+        setStockName("Done");
         setStockPrice("");
         setStockQuantity("");
       }
@@ -46,15 +46,16 @@ const StockRegister = () => {
           : error.response?.data?.message || "An error occurred!"
       );
       setMessageType("error");
-    } finally {
-      setLoading(false); // Stop loading
-    }
+    } 
+    // finally {
+    //   setLoading(false); // Stop loading
+    // }
 
     // Clear the message after 5 seconds
-    setTimeout(() => {
-      setMessage(null);
-      setMessageType("");
-    }, 5000);
+    // setTimeout(() => {
+    //   setMessage(null);
+    //   setMessageType("");
+    // }, 5000);
   };
 
   return (
