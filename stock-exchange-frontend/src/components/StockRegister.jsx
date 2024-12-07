@@ -57,7 +57,7 @@ const StockRegister = () => {
             type="number"
             value={stockQuantity}
             onChange={(e) => setStockQuantity(e.target.value)}
-            placeholder="Enter stock price"
+            placeholder="Enter stock Quantity"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
           />
         </div>
