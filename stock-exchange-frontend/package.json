@@ -2,7 +2,6 @@
   "name": "stock-exchange-frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://192.168.49.2:30008",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
