@@ -6,7 +6,6 @@ const StockRegister = () => {
   const [stockPrice, setStockPrice] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
   const [message, setMessage] = useState(null); // For success/error messages
-  const [msgBool,setMsgBool] = useState(false);
   const [messageType, setMessageType] = useState(""); // 'success' or 'error'
   const [loading, setLoading] = useState(false); // For showing the loading bar
 
@@ -35,7 +34,7 @@ const StockRegister = () => {
       if (response) {
         setMessage("Stock registered successfully!");
         setMessageType("success");
-        setMsgBool(true);
+
         // Clear form fields
         setStockName("");
         setStockPrice("");
@@ -44,21 +43,22 @@ const StockRegister = () => {
     } catch (error) {
       setMessage(
         error.message === "Request timed out"
-        ? "Request timed out. Please try again!"
-        : error.response?.data?.message || "An error occurred!"
+          ? "Request timed out. Please try again!"
+          : error.response?.data?.message || "An error occurred!"
       );
       setMessageType("error");
-      setMsgBool(true);
-    } 
-    finally {
+    } finally {
       setLoading(false); // Stop loading
     }
 
     // Clear the message after 5 seconds
-    // setTimeout(() => {
-    //   setMessage(null);
-    //   setMessageType("");
-    // }, 5000);
+    const timer = setTimeout(() => {
+      setMessage(null);
+      setMessageType("");
+    }, 5000);
+
+    // Clean up timer on component unmount
+    return () => clearTimeout(timer);
   };
 
   return (
@@ -66,7 +66,7 @@ const StockRegister = () => {
       <h1 className="text-2xl font-bold mb-4">Register a Stock</h1>
 
       {/* Display success or error message */}
-      {msgBool && (
+      {message && (
         <div
           className={`flex items-center mb-4 p-4 rounded ${
             messageType === "success"
