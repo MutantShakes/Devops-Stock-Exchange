@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8080/api"; // Update this URL to your backend endpoint.
+const API_BASE_URL = "http://backend-service.stock-exchange.svc.cluster.local:8080/api"; // Update this URL to your backend endpoint.
 
 const api = {
   // Fetch market trends
