@@ -5,18 +5,18 @@ import com.example.stockexchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(
-        origins = {
-                "http://192.168.49.2:30007",
-                "http://192.168.49.2:80"
-        },
-        methods = {
-                RequestMethod.OPTIONS,
-                RequestMethod.GET,
-                RequestMethod.PUT,
-                RequestMethod.DELETE,
-                RequestMethod.POST
-        })
+//@CrossOrigin(
+//        origins = {
+//                "http://192.168.49.2:30007",
+//                "http://192.168.49.2:80"
+//        },
+//        methods = {
+//                RequestMethod.OPTIONS,
+//                RequestMethod.GET,
+//                RequestMethod.PUT,
+//                RequestMethod.DELETE,
+//                RequestMethod.POST
+//        })
 
 @RestController
 @RequestMapping("/api/users")
