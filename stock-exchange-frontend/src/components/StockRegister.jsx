@@ -5,19 +5,32 @@ const StockRegister = () => {
   const [stockName, setStockName] = useState("");
   const [stockPrice, setStockPrice] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
-  const [message, setMessage] = useState(null); // For displaying success/error messages
+  const [message, setMessage] = useState(null); // For success/error messages
   const [messageType, setMessageType] = useState(""); // 'success' or 'error'
+  const [loading, setLoading] = useState(false); // For showing the loading bar
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading
+    setMessage(null); // Reset messages
+    setMessageType("");
+
     const stockData = {
       company_name: stockName,
       price: stockPrice,
       quantity: stockQuantity,
     };
 
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Request timed out")), 5000) // Timeout after 5 seconds
+    );
+
     try {
-      const response = await api.registerStock(stockData);
+      const response = await Promise.race([
+        api.registerStock(stockData),
+        timeout,
+      ]);
+
       if (response) {
         setMessage("Stock registered successfully!");
         setMessageType("success");
@@ -27,8 +40,14 @@ const StockRegister = () => {
         setStockQuantity("");
       }
     } catch (error) {
-      setMessage(error.response?.data?.message || "An error occurred!");
+      setMessage(
+        error.message === "Request timed out"
+          ? "Request timed out. Please try again!"
+          : error.response?.data?.message || "An error occurred!"
+      );
       setMessageType("error");
+    } finally {
+      setLoading(false); // Stop loading
     }
 
     // Clear the message after 5 seconds
@@ -42,7 +61,7 @@ const StockRegister = () => {
     <div>
       <h1 className="text-2xl font-bold mb-4">Register a Stock</h1>
 
-      {/* Display message */}
+      {/* Display success or error message */}
       {message && (
         <div
           className={`flex items-center mb-4 p-4 rounded ${
@@ -85,6 +104,16 @@ const StockRegister = () => {
             )}
           </span>
           <span>{message}</span>
+        </div>
+      )}
+
+      {/* Show loading bar */}
+      {loading && (
+        <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+          <div
+            className="bg-blue-500 h-2.5 rounded-full animate-pulse"
+            style={{ width: "100%" }}
+          ></div>
         </div>
       )}
 
@@ -131,8 +160,9 @@ const StockRegister = () => {
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          disabled={loading}
         >
-          Register
+          {loading ? "Registering..." : "Register"}
         </button>
       </form>
     </div>
