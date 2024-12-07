@@ -2,14 +2,12 @@ kind: Service
 apiVersion: v1
 metadata:
   name: mysql
-  namespace: stock-exchange
   labels:
     app: mysql
+  namespace: stock-exchange
 spec:
   selector:
     app: mysql
   ports:
   - port: 3306
-  selector:
-    app: mysql
-  clusterIP: None
+  ClusterIP: None
