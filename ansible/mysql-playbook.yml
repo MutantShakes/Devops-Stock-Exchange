@@ -14,10 +14,10 @@
       args:
         executable: /bin/bash
 
-    - name: Apply MySQL Secrets
-      kubernetes.core.k8s:
-        state: present
-        definition: "{{ lookup('file', '../k8s/mysql-secret.yaml') | from_yaml }}"
+    # - name: Apply MySQL Secrets
+    #   kubernetes.core.k8s:
+    #     state: present
+    #     definition: "{{ lookup('file', '../k8s/mysql-secret.yaml') | from_yaml }}"
 
     - name: Create MySQL Config Map
       kubernetes.core.k8s:

@@ -17,10 +17,7 @@ spec:
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: password
+          value: "142002"
         - name: MYSQL_DATABASE
           value: "stock_exchange"
         ports:
