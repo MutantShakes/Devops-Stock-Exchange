@@ -1,6 +1,6 @@
 
-// const API_BASE_URL = "http://192.168.49.2:30008/api"; // Update this URL if the backend endpoint changes.
-const API_BASE_URL = "/api";
+const API_BASE_URL = "http://192.168.49.2:30008/api"; // Update this URL if the backend endpoint changes.
+
 
 // Helper for timeout
 const timeout = (ms, promise) => {
@@ -48,7 +48,7 @@ const api = {
     try {
       const response = await timeout(
         5000,
-        fetch(`${API_BASE_URL}/stocks/register`, {
+        fetch(`api/stocks/register`, { //change
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(stockData),
