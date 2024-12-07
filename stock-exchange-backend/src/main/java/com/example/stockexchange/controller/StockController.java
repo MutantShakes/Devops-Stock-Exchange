@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(
         origins = {
-                "http://192.168.49.2:30007"
+                "http://192.168.49.2:30007",
+                "http://192.168.49.2:80"
         },
         methods = {
                 RequestMethod.OPTIONS,
