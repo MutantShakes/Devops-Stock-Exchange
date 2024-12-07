@@ -12,7 +12,7 @@ data:
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL, -- To store encrypted passwords
+    password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     CREATE TABLE stocks (
@@ -20,8 +20,8 @@ data:
     company_name VARCHAR(100) NOT NULL,
     stock_symbol VARCHAR(10) UNIQUE NOT NULL,
     quantity INT NOT NULL DEFAULT 0,
-    price DECIMAL(10, 2) NOT NULL, -- Current price per stock
-    domain VARCHAR(50), -- e.g., IT, agriculture, etc.
+    price DECIMAL(10, 2) NOT NULL, 
+    domain VARCHAR(50), 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     CREATE TABLE transactions (
@@ -30,7 +30,7 @@ data:
     stock_id BIGINT NOT NULL,
     quantity INT NOT NULL,
     action ENUM('BUY', 'SELL') NOT NULL,
-    total_price DECIMAL(10, 2) NOT NULL, -- Quantity * price
+    total_price DECIMAL(10, 2) NOT NULL, 
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (stock_id) REFERENCES stocks(id) ON DELETE CASCADE
