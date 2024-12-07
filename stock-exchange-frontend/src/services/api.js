@@ -1,5 +1,6 @@
 
-const API_BASE_URL = "http://192.168.49.2:30008/api"; // Update this URL if the backend endpoint changes.
+// const API_BASE_URL = "http://192.168.49.2:30008/api"; // Update this URL if the backend endpoint changes.
+const API_BASE_URL = "/api";
 
 // Helper for timeout
 const timeout = (ms, promise) => {
