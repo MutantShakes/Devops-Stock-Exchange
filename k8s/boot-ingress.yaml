@@ -4,7 +4,7 @@ metadata:
   name: boot-ingress
   namespace: stock-exchange
   annotations:
-    nginx.ingress.kubernetes.io/add-cors-headers: "true" # Enable CORS
+    nginx.ingress.kubernetes.io/enable-cors: "true" # Enable CORS
     nginx.ingress.kubernetes.io/cors-allow-origin: "http://192.168.49.2:30007" # Allowed origin
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS" # HTTP methods
     nginx.ingress.kubernetes.io/cors-allow-headers: "Authorization, Content-Type" # Allowed headers
