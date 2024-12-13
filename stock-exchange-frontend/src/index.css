@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.table-auto th, .table-auto td {
+    text-align: left;
+  }
+  
+  .table-auto th {
+    background-color: #f8f9fa;
+  }
+  
+  .table-auto tbody tr:nth-child(even) {
+    background-color: #f1f3f5;
+  }

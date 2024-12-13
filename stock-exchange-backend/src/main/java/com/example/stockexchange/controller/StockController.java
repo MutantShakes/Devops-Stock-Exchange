@@ -3,7 +3,9 @@ package com.example.stockexchange.controller;
 import com.example.stockexchange.model.Stock;
 import com.example.stockexchange.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 //@CrossOrigin(
 //        origins = {
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/stocks")
+@CrossOrigin(origins = "*")
 public class StockController {
     @Autowired
     private StockService stockService;
@@ -32,5 +35,11 @@ public class StockController {
     @GetMapping("/{symbol}")
     public Stock getStock(@PathVariable String symbol) {
         return stockService.getStockBySymbol(symbol);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Stock>> getAllStocks() {
+        List<Stock> stocks = stockService.getAllStocks();
+        return ResponseEntity.ok(stocks);
     }
 }

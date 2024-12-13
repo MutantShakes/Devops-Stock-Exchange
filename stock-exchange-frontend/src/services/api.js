@@ -65,6 +65,18 @@ const api = {
     }
   },
 
+   // Fetch all stocks
+   fetchAllStocks: async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/stocks`);
+      if (!response.ok) throw new Error("Failed to fetch stocks.");
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      throw error; // Re-throw error to handle in component
+    }
+  },
+
   // // Fetch transaction history
   // fetchTransactions: async () => {
   //   try {
