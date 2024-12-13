@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: stockexchange
+
+  datasource:
+    url: jdbc:mysql://mysql/stock_exchange?createDatabaseIfNotExist=true&useSSL=false&user=root
+    username: root
+    password: root
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+server:
+  port: 8080
+
+cors:
+  allowed-origins: "*"
+  allowed-methods: "*"
+  allowed-headers: "*"
+  allow-credentials: true
