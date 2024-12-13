@@ -22,6 +22,7 @@ spec:
         env:
         - name: discovery.type
           value: single-node
+          
 ---
 apiVersion: v1
 kind: Service
