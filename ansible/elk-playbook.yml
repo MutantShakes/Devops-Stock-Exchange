@@ -19,14 +19,33 @@
         state: present
         definition: "{{ lookup('file', '../elk/elasticsearch-deployment.yaml') | from_yaml }}"
 
+    - name: Create ElasticSearch Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../elk/elasticsearch-service.yaml') | from_yaml }}"    
+
+    - name: Create Logstash Config
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../elk/logstash-configmap.yaml') | from_yaml }}"
+
     - name: Deploy Logstash
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '../elk/logstash-deployment.yaml') | from_yaml }}"
 
+    - name: Create Logstash Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../elk/logstash-service.yaml') | from_yaml }}"
 
     - name: Deploy Kibana
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '../elk/kibana-deployment.yaml') | from_yaml }}"
+
+    - name: Create Kibana Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../elk/kibana-service.yaml') | from_yaml }}"
 
