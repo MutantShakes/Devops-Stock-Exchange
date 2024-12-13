@@ -34,7 +34,7 @@ pipeline {
             }
         }
         
-        stage('Deploy MySQL with Ansible') {
+        stage('Deploy MySQL') {
             steps {
                 script{
                     sh 'ansible-playbook -i ansible/inventory.yml ansible/mysql-playbook.yml'
@@ -86,6 +86,14 @@ pipeline {
             steps {
                 script{
                     sh 'ansible-playbook -i ansible/inventory.yml ansible/playbook.yml'
+                }
+            }
+        }
+
+        stage('Deploy ELK') {
+            steps {
+                script{
+                    sh 'ansible-playbook -i ansible/inventory.yml ansible/elk-playbook.yml'
                 }
             }
         }

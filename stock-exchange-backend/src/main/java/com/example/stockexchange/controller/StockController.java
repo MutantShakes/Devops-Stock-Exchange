@@ -5,25 +5,16 @@ import com.example.stockexchange.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
-
-//@CrossOrigin(
-//        origins = {
-//                "http://192.168.49.2:30007",
-//                "http://192.168.49.2:80"
-//        },
-//        methods = {
-//                RequestMethod.OPTIONS,
-//                RequestMethod.GET,
-//                RequestMethod.PUT,
-//                RequestMethod.DELETE,
-//                RequestMethod.POST
-//        })
 
 @RestController
 @RequestMapping("/api/stocks")
 @CrossOrigin(origins = "*")
 public class StockController {
+    private static final Logger logger = LoggerFactory.getLogger(StockController.class);
+
     @Autowired
     private StockService stockService;
 
@@ -39,7 +30,14 @@ public class StockController {
 
     @GetMapping
     public ResponseEntity<List<Stock>> getAllStocks() {
-        List<Stock> stocks = stockService.getAllStocks();
-        return ResponseEntity.ok(stocks);
+        logger.info("Fetching all stocks");
+        try {
+            List<Stock> stocks = stockService.getAllStocks();
+            logger.debug("Fetched {} stocks", stocks.size());
+            return ResponseEntity.ok(stocks);
+        } catch (Exception e) {
+            logger.error("Error fetching stocks: {}", e.getMessage());
+            throw e;
+        }
     }
 }

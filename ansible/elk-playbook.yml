@@ -1,0 +1,32 @@
+---
+- name: Deploying with Kubernetes
+  hosts: all
+  tasks:
+
+    - name: Ensure pip is installed
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install prerequisites system-wide
+      shell: |
+        python3.12 -m pip install --break-system-packages openshift pyyaml kubernetes
+      args:
+        executable: /bin/bash
+
+    - name: Deploy ElasticSearch
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../elk/elasticsearch-deployment.yaml') | from_yaml }}"
+
+    - name: Deploy Logstash
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../elk/logstash-deployment.yaml') | from_yaml }}"
+
+
+    - name: Deploy Kibana
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', '../elk/kibana-deployment.yaml') | from_yaml }}"
+
