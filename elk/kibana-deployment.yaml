@@ -18,6 +18,3 @@ spec:
         image: docker.elastic.co/kibana/kibana:8.10.0
         ports:
         - containerPort: 5601
-        env:
-        - name: ELASTICSEARCH_HOSTS
-          value: http://192.168.49.2:30009
