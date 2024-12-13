@@ -5,8 +5,8 @@ metadata:
   namespace: stock-exchange
 spec:
   ports:
-  - port: 5601
+  - protocol: TCP
+    port: 5601
     targetPort: 5601
   selector:
     app: kibana
-  type: LoadBalancer
