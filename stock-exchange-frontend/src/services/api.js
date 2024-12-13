@@ -20,35 +20,35 @@ const timeout = (ms, promise) => {
 
 const api = {
   // Fetch market trends
-  fetchMarketTrends: async () => {
-    try {
-      const response = await timeout(5000, fetch(`${API_BASE_URL}/market-trends`));
-      if (!response.ok) throw new Error("Failed to fetch market trends.");
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  },
+  // fetchMarketTrends: async () => {
+  //   try {
+  //     const response = await timeout(5000, fetch(`${API_BASE_URL}/market-trends`));
+  //     if (!response.ok) throw new Error("Failed to fetch market trends.");
+  //     return await response.json();
+  //   } catch (error) {
+  //     console.error(error);
+  //     throw error;
+  //   }
+  // },
 
-  // Fetch stock analysis data
-  fetchStockAnalysis: async () => {
-    try {
-      const response = await timeout(5000, fetch(`${API_BASE_URL}/stock-analysis`));
-      if (!response.ok) throw new Error("Failed to fetch stock analysis.");
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  },
+  // // Fetch stock analysis data
+  // fetchStockAnalysis: async () => {
+  //   try {
+  //     const response = await timeout(5000, fetch(`${API_BASE_URL}/stock-analysis`));
+  //     if (!response.ok) throw new Error("Failed to fetch stock analysis.");
+  //     return await response.json();
+  //   } catch (error) {
+  //     console.error(error);
+  //     throw error;
+  //   }
+  // },
 
   // Register a stock
   registerStock: async (stockData) => {
     try {
       const response = await timeout(
         5000,
-        fetch(`api/stocks/register`, { //change
+        fetch(`${API_BASE_URL}/stocks/register`, { //change
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(stockData),
@@ -65,39 +65,39 @@ const api = {
     }
   },
 
-  // Fetch transaction history
-  fetchTransactions: async () => {
-    try {
-      const response = await timeout(5000, fetch(`${API_BASE_URL}/transactions`));
-      if (!response.ok) throw new Error("Failed to fetch transactions.");
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  },
+  // // Fetch transaction history
+  // fetchTransactions: async () => {
+  //   try {
+  //     const response = await timeout(5000, fetch(`${API_BASE_URL}/transactions`));
+  //     if (!response.ok) throw new Error("Failed to fetch transactions.");
+  //     return await response.json();
+  //   } catch (error) {
+  //     console.error(error);
+  //     throw error;
+  //   }
+  // },
 
-  // Register a user
-  registerUser: async (userData) => {
-    try {
-      const response = await timeout(
-        5000,
-        fetch(`${API_BASE_URL}/users/register`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userData),
-        })
-      );
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to register user.");
-      }
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  },
+  // // Register a user
+  // registerUser: async (userData) => {
+  //   try {
+  //     const response = await timeout(
+  //       5000,
+  //       fetch(`${API_BASE_URL}/users/register`, {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify(userData),
+  //       })
+  //     );
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       throw new Error(errorData.message || "Failed to register user.");
+  //     }
+  //     return await response.json();
+  //   } catch (error) {
+  //     console.error(error);
+  //     throw error;
+  //   }
+  // },
 };
 
 export default api;
