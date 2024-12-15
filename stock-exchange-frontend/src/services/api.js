@@ -87,6 +87,17 @@ const api = {
       return [];
     }
   },
+
+  fetchStockAnalysis: async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/stock-analysis`);
+      if (!response.ok) throw new Error("Failed to fetch stock analysis.");
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      return []; // Return an empty array on failure
+    }
+  },
   
 
   // // Fetch transaction history
