@@ -15,12 +15,15 @@ spec:
     spec:
       containers:
       - name: logstash
-        image: docker.elastic.co/logstash/logstash:8.10.0
+        image: docker.elastic.co/logstash/logstash:7.15.2
         ports:
         - containerPort: 5044
+        env:
+        - name: LS_JAVA_OPTS
+          value: "-Xmx256m -Xms256m"
         volumeMounts:
         - name: logstash-pipeline-volume
-          mountPath: /usr/share/logstash/pipeline/
+          mountPath: /usr/share/logstash/pipeline/logstash.conf
       volumes:
       - name: logstash-pipeline-volume
         configMap:

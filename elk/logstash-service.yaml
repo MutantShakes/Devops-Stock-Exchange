@@ -5,7 +5,8 @@ metadata:
   namespace: stock-exchange
 spec:
   ports:
-  - port: 5044
+  - protocol: TCP
+    port: 5044
     targetPort: 5044
   selector:
     app: logstash
