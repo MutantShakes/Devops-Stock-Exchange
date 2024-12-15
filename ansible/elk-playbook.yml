@@ -22,7 +22,11 @@
     - name: Create ElasticSearch Service
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', '../elk/elasticsearch-service.yaml') | from_yaml }}"    
+        definition: "{{ lookup('file', '../elk/elasticsearch-service.yaml') | from_yaml }}" 
+
+    - name: Pause for 20 seconds
+      pause:
+        seconds: 20  
 
     - name: Create Logstash Config
       kubernetes.core.k8s:
@@ -38,6 +42,10 @@
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '../elk/logstash-service.yaml') | from_yaml }}"
+
+    - name: Pause for 10 seconds
+      pause:
+        seconds: 10
 
     - name: Deploy Kibana
       kubernetes.core.k8s:
