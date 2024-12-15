@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "http://192.168.49.2:30008/api"; // Update this URL if the backend endpoint changes.
+const API_BASE_URL = "http://backend-service:8080/api"; // Update this URL if the backend endpoint changes.
 
 
 // Helper for timeout
