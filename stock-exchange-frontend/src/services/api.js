@@ -76,6 +76,7 @@ const api = {
       throw error; // Re-throw error to handle in component
     }
   },
+  
 
   // // Fetch transaction history
   // fetchTransactions: async () => {

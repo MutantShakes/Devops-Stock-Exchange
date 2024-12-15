@@ -1,77 +1,67 @@
 import React, { useState, useEffect } from "react";
-import api from "../services/api";
+import { fetchAllStocks } from "../services/api";
 
 const MarketTrends = () => {
-  const [stocks, setStocks] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
+  // Dummy data to show initially
+  const dummyStocks = [
+    { id: 1, name: "ABC Corp", price: 120, quantity: 50 },
+    { id: 2, name: "XYZ Ltd", price: 80, quantity: 100 },
+    { id: 3, name: "LMN Inc", price: 150, quantity: 75 },
+  ];
 
-  // Fetch stock data on component mount
+  const [stocks, setStocks] = useState(dummyStocks);
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
-    const fetchStocks = async () => {
+    const loadStocks = async () => {
       try {
-        const data = await api.fetchAllStocks(); // Fetch stocks from API
-        setStocks(data);
+        const data = await fetchAllStocks();
+        if (data && data.length > 0) {
+          setStocks(data); // Replace dummy data with API data
+        }
       } catch (error) {
-        console.error("Error fetching stocks:", error);
-      } finally {
-        setLoading(false);
+        console.error("Failed to fetch stocks:", error);
       }
     };
 
-    fetchStocks();
+    loadStocks();
   }, []);
 
-  // Filter stocks based on the search term
+  // Filter stocks based on the search query
   const filteredStocks = stocks.filter((stock) =>
-    stock.company_name.toLowerCase().includes(searchTerm.toLowerCase())
+    stock.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-    <div className="p-4">
+    <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Market Trends</h1>
-
-      {/* Search Bar */}
       <input
         type="text"
-        placeholder="Search stocks by name"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="mb-4 p-2 border rounded w-full"
+        placeholder="Search stocks..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="border p-2 rounded w-full mb-4"
       />
-
-      {/* Loading Indicator */}
-      {loading ? (
-        <div className="text-center">Loading stocks...</div>
-      ) : filteredStocks.length > 0 ? (
-        // Table to display stock data
-        <table className="table-auto w-full border-collapse border border-gray-300">
-          <thead>
-            <tr>
-              <th className="border border-gray-300 px-4 py-2">Company Name</th>
-              <th className="border border-gray-300 px-4 py-2">Price</th>
-              <th className="border border-gray-300 px-4 py-2">Quantity</th>
+      <table className="w-full table-auto border-collapse border">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border px-4 py-2">Stock ID</th>
+            <th className="border px-4 py-2">Name</th>
+            <th className="border px-4 py-2">Price ($)</th>
+            <th className="border px-4 py-2">Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredStocks.map((stock) => (
+            <tr key={stock.id} className="hover:bg-gray-100">
+              <td className="border px-4 py-2">{stock.id}</td>
+              <td className="border px-4 py-2">{stock.name}</td>
+              <td className="border px-4 py-2">{stock.price}</td>
+              <td className="border px-4 py-2">{stock.quantity}</td>
             </tr>
-          </thead>
-          <tbody>
-            {filteredStocks.map((stock) => (
-              <tr key={stock.id}>
-                <td className="border border-gray-300 px-4 py-2">
-                  {stock.company_name}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {stock.price}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {stock.quantity}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <div className="text-center">No stocks found.</div>
-      )}
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
