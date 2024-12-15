@@ -19,7 +19,7 @@ const StockAnalysis = () => {
     };
 
     fetchData();
-  }, []);
+  }, [dummyData]);
 
   // Dummy data in case API fails
   const dummyData = [
