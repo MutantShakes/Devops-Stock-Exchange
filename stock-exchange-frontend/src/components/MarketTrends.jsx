@@ -1,54 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { fetchAllStocks } from "../services/api";
+import api from "../services/api";
 
 const MarketTrends = () => {
-  // Dummy data to show initially
   const dummyStocks = [
-    { id: 1, name: "ABC Corp", price: 120, quantity: 50 },
-    { id: 2, name: "XYZ Ltd", price: 80, quantity: 100 },
-    { id: 3, name: "LMN Inc", price: 150, quantity: 75 },
+    { id: 1, name: "ABC Corp", price: 120, change: "+1.2%" },
+    { id: 2, name: "XYZ Ltd", price: 80, change: "-0.8%" },
+    { id: 3, name: "LMN Inc", price: 150, change: "+2.0%" },
   ];
 
   const [stocks, setStocks] = useState(dummyStocks);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const loadStocks = async () => {
+    const loadMarketTrends = async () => {
       try {
-        const data = await fetchAllStocks();
+        const data = await api.fetchAllStocks();
         if (data && data.length > 0) {
-          setStocks(data); // Replace dummy data with API data
+          setStocks(data);
         }
       } catch (error) {
-        console.error("Failed to fetch stocks:", error);
+        console.error("Error fetching market trends:", error);
       }
     };
 
-    loadStocks();
+    loadMarketTrends();
   }, []);
 
-  // Filter stocks based on the search query
   const filteredStocks = stocks.filter((stock) =>
-    stock.name.toLowerCase().includes(searchQuery.toLowerCase())
+    stock.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Market Trends</h1>
+
       <input
         type="text"
         placeholder="Search stocks..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="border p-2 rounded w-full mb-4"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="mb-4 p-2 border rounded w-full"
       />
+
       <table className="w-full table-auto border-collapse border">
         <thead>
           <tr className="bg-gray-200">
             <th className="border px-4 py-2">Stock ID</th>
-            <th className="border px-4 py-2">Name</th>
+            <th className="border px-4 py-2">Stock Name</th>
             <th className="border px-4 py-2">Price ($)</th>
-            <th className="border px-4 py-2">Quantity</th>
+            <th className="border px-4 py-2">Change</th>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@ const MarketTrends = () => {
               <td className="border px-4 py-2">{stock.id}</td>
               <td className="border px-4 py-2">{stock.name}</td>
               <td className="border px-4 py-2">{stock.price}</td>
-              <td className="border px-4 py-2">{stock.quantity}</td>
+              <td className="border px-4 py-2">{stock.change}</td>
             </tr>
           ))}
         </tbody>

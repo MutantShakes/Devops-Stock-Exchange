@@ -76,6 +76,17 @@ const api = {
       throw error; // Re-throw error to handle in component
     }
   },
+
+  fetchTransactions: async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/transactions`);
+      if (!response.ok) throw new Error("Failed to fetch transactions.");
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  },
   
 
   // // Fetch transaction history

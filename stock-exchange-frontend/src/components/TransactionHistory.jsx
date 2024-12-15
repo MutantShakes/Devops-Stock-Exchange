@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { fetchTransactions } from "../services/api";
+import api from "../services/api";
 
 const TransactionHistory = () => {
-  // Dummy data for initial display
   const dummyTransactions = [
     {
       id: 1,
@@ -37,12 +36,12 @@ const TransactionHistory = () => {
     const loadTransactions = async () => {
       setLoading(true);
       try {
-        const data = await fetchTransactions();
+        const data = await api.fetchTransactions();
         if (data && data.length > 0) {
-          setTransactions(data); // Replace dummy data with real API data
+          setTransactions(data);
         }
       } catch (error) {
-        console.error("Failed to fetch transactions:", error);
+        console.error("Error fetching transactions:", error);
       } finally {
         setLoading(false);
       }
