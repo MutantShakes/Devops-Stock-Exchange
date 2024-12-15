@@ -8,6 +8,14 @@ const StockAnalysis = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const dummyData = [
+        { date: "2024-06-01", price: 120, buys: 30, sells: 20 },
+        { date: "2024-06-02", price: 125, buys: 40, sells: 25 },
+        { date: "2024-06-03", price: 130, buys: 45, sells: 30 },
+        { date: "2024-06-04", price: 128, buys: 35, sells: 40 },
+        { date: "2024-06-05", price: 135, buys: 50, sells: 45 },
+      ];
+
       try {
         // Fetch the analysis data
         const analysisData = await api.fetchStockAnalysis();
@@ -19,16 +27,8 @@ const StockAnalysis = () => {
     };
 
     fetchData();
-  }, [dummyData]);
+  }, []);
 
-  // Dummy data in case API fails
-  const dummyData = [
-    { date: "2024-06-01", price: 120, buys: 30, sells: 20 },
-    { date: "2024-06-02", price: 125, buys: 40, sells: 25 },
-    { date: "2024-06-03", price: 130, buys: 45, sells: 30 },
-    { date: "2024-06-04", price: 128, buys: 35, sells: 40 },
-    { date: "2024-06-05", price: 135, buys: 50, sells: 45 },
-  ];
 
   // Graph data preparation
   const dates = data.map((item) => item.date);
