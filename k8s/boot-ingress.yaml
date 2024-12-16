@@ -4,7 +4,8 @@ metadata:
   name: boot-ingress
   namespace: stock-exchange
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: / # Ensure all paths are redirected
+    nginx.ingress.kubernetes.io/rewrite-target: / # Ensure React can handle all paths
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
   - host: localhost
@@ -17,8 +18,8 @@ spec:
             name: backend-service
             port:
               number: 8080
-      - path: /
-        pathType: Prefix
+      - path: /?(.*)  # Catch all paths
+        pathType: ImplementationSpecific
         backend:
           service:
             name: frontend-service
