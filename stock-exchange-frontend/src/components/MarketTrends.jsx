@@ -3,9 +3,9 @@ import api from "../services/api";
 
 const MarketTrends = () => {
   const dummyStocks = [
-    { id: 1, name: "ABC Corp", price: 120, change: "+1.2%" },
-    { id: 2, name: "XYZ Ltd", price: 80, change: "-0.8%" },
-    { id: 3, name: "LMN Inc", price: 150, change: "+2.0%" },
+    { id: 1, companyName: "ABC Corp", price: 120, quantity: "123" },
+    { id: 2, companyName: "XYZ Ltd", price: 80, quantity: "45" },
+    { id: 3, companyName: "LMN Inc", price: 150, quantity: "56" },
   ];
 
   const [stocks, setStocks] = useState(dummyStocks);
@@ -48,16 +48,16 @@ const MarketTrends = () => {
             <th className="border px-4 py-2">Stock ID</th>
             <th className="border px-4 py-2">Stock Name</th>
             <th className="border px-4 py-2">Price ($)</th>
-            <th className="border px-4 py-2">Change</th>
+            <th className="border px-4 py-2">Quantity</th>
           </tr>
         </thead>
         <tbody>
           {filteredStocks.map((stock) => (
             <tr key={stock.id} className="hover:bg-gray-100">
               <td className="border px-4 py-2">{stock.id}</td>
-              <td className="border px-4 py-2">{stock.name}</td>
+              <td className="border px-4 py-2">{stock.companyName}</td>
               <td className="border px-4 py-2">{stock.price}</td>
-              <td className="border px-4 py-2">{stock.change}</td>
+              <td className="border px-4 py-2">{stock.quantity}</td>
             </tr>
           ))}
         </tbody>

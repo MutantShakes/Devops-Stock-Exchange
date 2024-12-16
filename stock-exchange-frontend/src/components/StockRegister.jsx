@@ -16,13 +16,13 @@ const StockRegister = () => {
     setMessageType("");
 
     const stockData = {
-      company_name: stockName,
+      companyName: stockName,
       price: stockPrice,
       quantity: stockQuantity,
     };
 
     const timeout = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Request timed out")), 5000) // Timeout after 5 seconds
+      setTimeout(() => reject(new Error("Request timed out")), 15000) // Timeout after 5 seconds
     );
 
     try {
