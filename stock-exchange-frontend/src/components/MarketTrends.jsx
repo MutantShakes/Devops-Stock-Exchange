@@ -27,7 +27,7 @@ const MarketTrends = () => {
   }, []);
 
   const filteredStocks = stocks.filter((stock) =>
-    stock.name.toLowerCase().includes(search.toLowerCase())
+    stock.companyName.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
