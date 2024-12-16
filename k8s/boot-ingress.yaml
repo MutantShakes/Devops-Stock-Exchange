@@ -3,18 +3,13 @@ kind: Ingress
 metadata:
   name: boot-ingress
   namespace: stock-exchange
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: / # Ensure all paths are redirected
 spec:
   rules:
   - host: localhost
     http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: frontend-service
-            port:
-              number: 80
       - path: /api
         pathType: Prefix
         backend:
@@ -22,3 +17,10 @@ spec:
             name: backend-service
             port:
               number: 8080
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
