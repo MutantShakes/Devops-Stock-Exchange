@@ -47,7 +47,7 @@ const api = {
   registerStock: async (stockData) => {
     try {
       const response = await timeout(
-        5000,
+        10000,
         fetch(`${API_BASE_URL}/stocks/register`, { //change
           method: "POST",
           headers: { "Content-Type": "application/json" },
