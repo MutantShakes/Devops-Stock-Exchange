@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Line, Bar } from "react-chartjs-2";
+import api from "../services/api";
 import {
   Chart as ChartJS,
   LineElement,
@@ -23,7 +24,6 @@ ChartJS.register(
   Legend
 );
 
-import api from "../services/api";
 
 const StockAnalysis = () => {
   const [data, setData] = useState([]);
